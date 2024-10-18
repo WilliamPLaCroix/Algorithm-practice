@@ -13,23 +13,16 @@ class LinearRegression:
         X = np.array(X).reshape(-1)
         mean_X = np.mean(X)
         mean_y = np.mean(y)
-        # difference_X = X-mean_X
-        # difference_y = y-mean_y
-        # self.coef = np.sum(difference_X * difference_y) / np.sum(difference_X ** 2)
-        # self.intercept = mean_y - self.coef * mean_X
         difference_X = X-mean_X
         difference_y = y-mean_y
         multiply = difference_X * difference_y
-        sum_multiply = np.sum(multiply)
-        bottom = np.sum(difference_X ** 2)
-        self.coef = sum_multiply / bottom
+        self.coef = np.sum(multiply) / np.sum(difference_X ** 2)
         self.intercept = mean_y - self.coef * mean_X
         self.score = None ### TODO
         return
 
     def predict(self, X):
         raise NotImplementedError
-
     
     def __repr__(self):
         return f"LinearRegression(coef={self.coef}, intercept={self.intercept})"
