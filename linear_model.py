@@ -24,13 +24,12 @@ class LinearRegression:
         bottom = np.sum(difference_X ** 2)
         self.coef = sum_multiply / bottom
         self.intercept = mean_y - self.coef * mean_X
+        self.score = None ### TODO
         return
 
     def predict(self, X):
         raise NotImplementedError
 
-    def score(self, X, y):
-        raise NotImplementedError
     
     def __repr__(self):
         return f"LinearRegression(coef={self.coef}, intercept={self.intercept})"
