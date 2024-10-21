@@ -2,8 +2,10 @@ import numpy as np
 import pandas as pd
 
 class LinearRegression:
+    """
+    Numpy implementation of 2d Linear Regression, with model fit, predict, and R2 score.
+    """
     def __init__(self):
-        self.score_ = None
         self.coef_ = None
         self.intercept_ = None
 
@@ -12,12 +14,12 @@ class LinearRegression:
         # intercept = y_mean - slope * x_mean
         X = np.array(X, dtype=np.longdouble).reshape(-1)
         y = np.array(y, dtype=np.longdouble)
-        mean_X = np.mean(X, dtype=np.longdouble)
-        mean_y = np.mean(y, dtype=np.longdouble)
+        mean_X = np.mean(X)
+        mean_y = np.mean(y)
         difference_X = X-mean_X
         difference_y = y-mean_y
-        coef = np.sum(difference_X * difference_y, dtype=np.longdouble) / np.sum(difference_X ** 2, dtype=np.longdouble)
-        self.coef_ = np.array([coef], dtype=np.longdouble)
+        coef = np.sum(difference_X * difference_y) / np.sum(difference_X ** 2)
+        self.coef_ = np.array([coef])
         self.intercept_ = mean_y - self.coef_.item() * mean_X
         return
     
