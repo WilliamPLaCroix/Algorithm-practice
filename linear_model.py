@@ -8,16 +8,22 @@ class LinearRegression:
     def __init__(self):
         self.coef_ = None
         self.intercept_ = None
+        self.X = None
+        self.y = None
 
     def fit(self, X, y):
+        """
+        Fit regression model to X, y, minimizing OLS to estimate the slope and intercept.
+        Currently only supports 2d (single-feauture) X.
+        """
         # coef  = sum((x - x_mean)(y - y_mean)) / sum(x - x_mean)^2
         # intercept = y_mean - slope * x_mean
-        X = np.array(X, dtype=np.longdouble).reshape(-1)
-        y = np.array(y, dtype=np.longdouble)
-        mean_X = np.mean(X)
-        mean_y = np.mean(y)
-        difference_X = X-mean_X
-        difference_y = y-mean_y
+        self.X = np.array(X).copy().reshape(-1)
+        self.y = np.array(y).copy()
+        mean_X = np.mean(self.X)
+        mean_y = np.mean(self.y)
+        difference_X = self.X-mean_X
+        difference_y = self.y-mean_y
         coef = np.sum(difference_X * difference_y) / np.sum(difference_X ** 2)
         self.coef_ = np.array([coef])
         self.intercept_ = mean_y - self.coef_.item() * mean_X
@@ -62,4 +68,4 @@ class LinearRegression:
         return y_pred.reshape(-1)
     
     def __repr__(self):
-        return f"LinearRegression(coef={self.coef}, intercept={self.intercept})"
+        return f"LinearRegression(coef={self.coef_}, intercept={self.intercept_}, score={self.score(self.X, self.y)})"
