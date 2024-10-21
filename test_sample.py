@@ -5,7 +5,7 @@ from sklearn.linear_model import LinearRegression as sklr
 import numpy as np
 import pandas as pd
 import linear_model as lm
-
+import metrics as mt
 
 import random
 
@@ -36,3 +36,22 @@ class TestLinearRegression:
     def test_score_weights(self):
         with pytest.raises(NotImplementedError):
             self.test_model.score(self.X, self.y, np.ones((len(self.y), 1)))
+
+
+class TestConfusionMatrix:
+
+    def test_confusion_matrix(self):
+        y_true = [0, 1, 0, 1, 1, 1, 0, 0, 1, 0]
+        y_pred = [0, 1, 0, 1, 1, 0, 1, 0, 1, 0]
+        assert np.array_equal(mt.confusion_matrix(y_true, y_pred), np.array([[3, 2], [2, 3]]))
+    
+    def test_confusion_matrix_error(self):
+        y_true = [0, 1, 0, 1, 1, 1, 0, 0, 1]
+        y_pred = [0, 1, 0, 1, 1, 0, 1, 0, 1, 0]
+        with pytest.raises(ValueError):
+            mt.confusion_matrix(y_true, y_pred)
+    
+    def test_confusion_matrix_empty(self):
+        y_true = []
+        y_pred = []
+        assert np.array_equal(mt.confusion_matrix(y_true, y_pred), np.array([]))
