@@ -1,9 +1,12 @@
 import numpy as np
 import pandas as pd
+import warnings
 
 class LinearRegression:
     """
     Numpy implementation of 2d Linear Regression, with model fit, predict, and R2 score.
+    The goal is to have this function as close as possible to the sklearn LinearRegression.
+    There are some differences in the model outputs, but calculations match to 14 decimal places.
     """
     def __init__(self):
         self.coef_ = None
@@ -30,10 +33,17 @@ class LinearRegression:
         return
     
     def score(self, X, y, weights=[]):
+        """
+        Score the model fit on X, y via R2, with optional weights.
+        R2 = 1 - RSS/TSS
+        I do not know where the weights are supposed to be used, since no combination
+        of weights insertion has produced a result that matches the sklearn LinearRegression.
+        Currently leaving the weights as an accepted parameter, but not implemented.
+        """
         if len(weights) == 0:
             weights = np.ones((len(y),1))
         else:
-            raise NotImplementedError("Weights are not implemented")
+            raise NotImplementedError("weights are not supported. Function will run without factoring in sample weights.")
         #print(weights)
         X = X.reshape(-1)
         weights = weights.reshape(10,)
@@ -63,6 +73,11 @@ class LinearRegression:
         return score
 
     def predict(self, X):
+        """
+        Predict the y values of X using the model's slope and intercept
+        y = mx + b
+        Predictions reshaped to 1d array.
+        """
         y_pred = X * self.coef_ + self.intercept_
         #print(y_pred.shape, y_pred)
         return y_pred.reshape(-1)
