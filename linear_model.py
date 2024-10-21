@@ -10,14 +10,14 @@ class LinearRegression:
     def fit(self, X, y):
         # coef  = sum((x - x_mean)(y - y_mean)) / sum(x - x_mean)^2
         # intercept = y_mean - slope * x_mean
-        X = np.array(X).reshape(-1)
-        mean_X = np.mean(X)
-        mean_y = np.mean(y)
+        X = np.array(X, dtype=np.longdouble).reshape(-1)
+        y = np.array(y, dtype=np.longdouble)
+        mean_X = np.mean(X, dtype=np.longdouble)
+        mean_y = np.mean(y, dtype=np.longdouble)
         difference_X = X-mean_X
         difference_y = y-mean_y
-        multiply = difference_X * difference_y
-        coef = np.sum(multiply) / np.sum(difference_X ** 2)
-        self.coef_ = np.array([coef])
+        coef = np.sum(difference_X * difference_y, dtype=np.longdouble) / np.sum(difference_X ** 2, dtype=np.longdouble)
+        self.coef_ = np.array([coef], dtype=np.longdouble)
         self.intercept_ = mean_y - self.coef_.item() * mean_X
         return
     
