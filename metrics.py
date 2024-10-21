@@ -12,4 +12,4 @@ def confusion_matrix(y_true, y_pred):
     confusion_matrix = np.zeros((len(mapping), len(mapping)))
     for i in range(len(y_true)):
         confusion_matrix[mapping[y_true[i]], mapping[y_pred[i]]] += 1
-    return confusion_matrix
+    return np.array(confusion_matrix)

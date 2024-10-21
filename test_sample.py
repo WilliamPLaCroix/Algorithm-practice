@@ -43,7 +43,7 @@ class TestConfusionMatrix:
     def test_confusion_matrix(self):
         y_true = [0, 1, 0, 1, 1, 1, 0, 0, 1, 0]
         y_pred = [0, 1, 0, 1, 1, 0, 1, 0, 1, 0]
-        assert np.array_equal(mt.confusion_matrix(y_true, y_pred), np.array([[3, 2], [2, 3]]))
+        assert np.array_equal(mt.confusion_matrix(y_true, y_pred), np.array([[4, 1], [1, 4]]))
     
     def test_confusion_matrix_error(self):
         y_true = [0, 1, 0, 1, 1, 1, 0, 0, 1]
@@ -54,4 +54,4 @@ class TestConfusionMatrix:
     def test_confusion_matrix_empty(self):
         y_true = []
         y_pred = []
-        assert np.array_equal(mt.confusion_matrix(y_true, y_pred), np.array([]))
+        assert np.array_equal(mt.confusion_matrix(y_true, y_pred), np.zeros((0, 0)))
